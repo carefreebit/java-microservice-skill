@@ -73,6 +73,7 @@ Windows 对应 `C:\Users\<你的用户名>\.claude\skills\java-microservice\`。
 | Windsurf | `.windsurf/rules/*.md` | Windsurf Settings → Rules |
 | GitHub Copilot | `.github/copilot-instructions.md`、`.github/instructions/*.instructions.md` | 组织或个人 Copilot 设置 |
 | OpenAI Codex CLI | `AGENTS.md` | `~/.codex/AGENTS.md`（以当前文档为准） |
+| DeepSeek Harness (DSH) | `AGENTS.md`（也读 `CLAUDE.md`）、`AGENTS.local.md` | `~/.dsh/AGENTS.md` |
 | Gemini CLI | `GEMINI.md` | `~/.gemini/GEMINI.md` |
 | Cline | `.clinerules` 或 `.clinerules/*.md` | Cline 自定义指令 |
 | Roo Code | `.roo/rules/*.md` | Roo Code 全局规则 |
@@ -91,6 +92,8 @@ Windows 对应 `C:\Users\<你的用户名>\.claude\skills\java-microservice\`。
 ```
 
 不同 Agent 对规则文件的加载方式、优先级和长度限制不同；无法按需读取文件时，优先把 `SKILL.md` 作为规则主体，`references/` 作为补充资料。
+
+DeepSeek Harness 不会自动读取 `.claude/skills/`；需要在项目根 `AGENTS.md` 或 `~/.dsh/AGENTS.md` 中写入入口规则，指向 skill 目录。安装 `dsh-rules` 插件时，也可以把按路径激活的规则放在 `.dsh/rules/*.md`。
 
 ## 快速开始
 

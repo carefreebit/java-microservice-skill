@@ -71,6 +71,7 @@ Common locations (check each tool's current docs):
 | Windsurf | `.windsurf/rules/*.md` | Windsurf Settings → Rules |
 | GitHub Copilot | `.github/copilot-instructions.md`, `.github/instructions/*.instructions.md` | Organization or personal Copilot settings |
 | OpenAI Codex CLI | `AGENTS.md` | `~/.codex/AGENTS.md` (check current docs) |
+| DeepSeek Harness (DSH) | `AGENTS.md` (also reads `CLAUDE.md`), `AGENTS.local.md` | `~/.dsh/AGENTS.md` |
 | Gemini CLI | `GEMINI.md` | `~/.gemini/GEMINI.md` |
 | Cline | `.clinerules` or `.clinerules/*.md` | Cline custom instructions |
 | Roo Code | `.roo/rules/*.md` | Roo Code global rules |
@@ -90,6 +91,8 @@ verify, archive.
 ```
 
 Rule loading, precedence, and length limits differ by tool. When on-demand file reads are unavailable, use `SKILL.md` as the main rule body and keep `references/` as supporting material.
+
+DeepSeek Harness does not auto-discover `.claude/skills/`; add an entry rule in the project-root `AGENTS.md` or `~/.dsh/AGENTS.md` pointing to the skill folder. With the `dsh-rules` plugin, path-activated rules can also live in `.dsh/rules/*.md`.
 
 ## Quick start
 
