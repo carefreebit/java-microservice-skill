@@ -1,0 +1,47 @@
+id: sca-boot3
+name: Spring Cloud Alibaba on Spring Boot 3
+status: recommended
+verified_at: 2026-11-12
+
+jdk: 17
+language_level: 17
+
+spring_boot: 3.3.x
+spring_cloud: 2023.0.x
+spring_cloud_alibaba: 2023.0.3.x
+
+bom:
+  - org.springframework.boot:spring-boot-dependencies:${spring_boot}
+  - org.springframework.cloud:spring-cloud-dependencies:${spring_cloud}
+  - com.alibaba.cloud:spring-cloud-alibaba-dependencies:${spring_cloud_alibaba}
+
+components:
+  registry: nacos
+  config: nacos
+  gateway: spring-cloud-gateway
+  rpc: openfeign
+  orm: mybatis-plus
+  mq: rocketmq
+  cache: redis
+  auth: jwt
+  observability: micrometer-prometheus
+  trace: micrometer-tracing
+  test: junit5-testcontainers
+
+validation_namespace: jakarta
+test_framework: junit5
+
+choose_when:
+  - 全新项目，团队使用 Spring 技术栈
+  - 需要 Nacos 注册配置、Sentinel 限流熔断、Seata 分布式事务的现成集成
+  - 团队接受 JDK 17 与 Jakarta 命名空间
+
+avoid_when:
+  - 已有 Dubbo 体系且不打算迁移
+  - 必须运行在 JDK 8 或 Spring Boot 2
+
+constraints:
+  - 不与其他注册中心或消息中间件混用
+  - Nacos、Sentinel、Seata 版本由 Spring Cloud Alibaba BOM 管理
+  - 服务间调用默认 OpenFeign，超时与熔断规则需显式配置
+  - 详细版本以官方 release notes 为准，升级前核对兼容矩阵

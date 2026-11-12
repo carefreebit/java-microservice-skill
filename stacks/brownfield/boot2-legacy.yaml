@@ -1,0 +1,48 @@
+id: boot2-legacy
+name: Spring Boot 2 / JDK 8 Legacy
+status: legacy
+verified_at: 2026-11-12
+
+jdk: 8
+language_level: 8
+
+spring_boot: 2.7.x
+spring_cloud: 2021.0.x
+spring_cloud_alibaba: 2021.0.5.x
+
+bom:
+  - org.springframework.boot:spring-boot-dependencies:${spring_boot}
+  - org.springframework.cloud:spring-cloud-dependencies:${spring_cloud}
+  - com.alibaba.cloud:spring-cloud-alibaba-dependencies:${spring_cloud_alibaba}
+
+components:
+  registry: nacos
+  config: nacos
+  gateway: spring-cloud-gateway
+  rpc: openfeign
+  orm: mybatis-plus
+  mq: rocketmq
+  cache: redis
+  auth: jwt
+  observability: micrometer-prometheus
+  trace: sleuth-or-project-default
+  test: junit4-or-project-default
+
+validation_namespace: javax
+test_framework: junit4
+
+choose_when:
+  - 存量项目仍在 JDK 8 / Spring Boot 2.7
+  - 团队暂时无法升级到 Jakarta 与 JDK 17
+  - 只需要在现有框架上增量开发
+
+avoid_when:
+  - 全新项目（优先选择 Boot 3 预设）
+  - 需要 Jakarta 专属 API 或 JDK 17 语言特性
+
+constraints:
+  - 使用 javax.validation / javax.servlet，不生成 jakarta 导入
+  - 不生成 record、var、text block
+  - 配置沿用 bootstrap.yml 与 spring.factories 机制
+  - 测试沿用 JUnit 4 或项目现有框架，不引入第二套
+  - 该预设为参考，存量项目以实际探测版本为准

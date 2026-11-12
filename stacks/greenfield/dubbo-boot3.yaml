@@ -1,0 +1,49 @@
+id: dubbo-boot3
+name: Dubbo 3 on Spring Boot 3
+status: recommended
+verified_at: 2026-11-12
+
+jdk: 17
+language_level: 17
+
+spring_boot: 3.3.x
+spring_cloud: 2023.0.x
+spring_cloud_alibaba: 2023.0.3.x
+dubbo: 3.2.x
+
+bom:
+  - org.springframework.boot:spring-boot-dependencies:${spring_boot}
+  - org.springframework.cloud:spring-cloud-dependencies:${spring_cloud}
+  - com.alibaba.cloud:spring-cloud-alibaba-dependencies:${spring_cloud_alibaba}
+  - org.apache.dubbo:dubbo-bom:${dubbo}
+
+components:
+  registry: nacos
+  config: nacos
+  gateway: spring-cloud-gateway
+  rpc: dubbo
+  orm: mybatis-plus
+  mq: rocketmq
+  cache: redis
+  auth: jwt
+  observability: micrometer-prometheus
+  trace: micrometer-tracing
+  test: junit5-testcontainers
+
+validation_namespace: jakarta
+test_framework: junit5
+
+choose_when:
+  - 团队已有 Dubbo 经验或存量系统以 Dubbo 为主
+  - 需要接口级服务治理、路由与多协议支持
+  - 新项目但希望沿用 Dubbo 生态
+
+avoid_when:
+  - 团队只熟悉 OpenFeign 且没有 Dubbo 运维经验
+  - 只需要简单的 HTTP 服务调用
+
+constraints:
+  - 服务接口必须版本化，接口与实现分离
+  - 不同时混用 OpenFeign 与 Dubbo 作为同一链路的 RPC
+  - Dubbo 与 Spring Cloud Alibaba 的版本需按官方兼容矩阵核对
+  - 注册中心统一使用 Nacos，不引入第二套注册中心

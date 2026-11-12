@@ -1,0 +1,47 @@
+# Stack preset template.
+# Copy this file into stacks/custom/ and replace every placeholder.
+# Do not add secrets, credentials, absolute paths, or machine-specific addresses.
+
+id: company-your-stack          # kebab-case, unique
+name: Your Stack Name
+status: experimental            # recommended | legacy | experimental
+verified_at: 2026-11-12         # YYYY-MM-DD, last checked against official release notes
+
+jdk: 17
+language_level: 17              # source level; prevents generating newer syntax
+
+spring_boot: 3.3.x
+spring_cloud: 2023.0.x
+spring_cloud_alibaba: 2023.0.3.x
+
+bom:
+  - org.springframework.boot:spring-boot-dependencies:${spring_boot}
+  - org.springframework.cloud:spring-cloud-dependencies:${spring_cloud}
+  - com.alibaba.cloud:spring-cloud-alibaba-dependencies:${spring_cloud_alibaba}
+
+components:
+  registry: nacos               # nacos | consul | eureka | kubernetes
+  config: nacos                 # nacos | apollo | spring-cloud-config
+  gateway: spring-cloud-gateway # spring-cloud-gateway | apisix | none
+  rpc: openfeign                # openfeign | dubbo | grpc
+  orm: mybatis-plus             # mybatis | mybatis-plus | jpa
+  mq: rocketmq                  # rocketmq | kafka | rabbitmq | none
+  cache: redis                  # redis | caffeine | none
+  auth: jwt                     # jwt | oauth2 | sa-token | internal
+  observability: micrometer-prometheus
+  trace: micrometer-tracing
+  test: junit5-testcontainers
+
+validation_namespace: jakarta   # jakarta | javax
+test_framework: junit5          # junit5 | junit4 | other
+
+choose_when:
+  - 说明适用场景一
+  - 说明适用场景二
+
+avoid_when:
+  - 说明不适用场景一
+
+constraints:
+  - 说明版本或组件限制
+  - 说明不能与哪些组件混用
