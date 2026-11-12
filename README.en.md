@@ -1,6 +1,6 @@
 # Java Microservice Skill
 
-A Claude Code skill for Java microservice development. It turns the Alibaba Java Coding Guidelines and Spring ecosystem practices into an executable workflow covering coding standards, distributed design, scaffolding, testing, PRD analysis, and brownfield onboarding. Every code change is planned, confirmed, implemented, tested, and archived through OpenSpec.
+A Java microservice development skill for AI coding agents. It is natively supported by Claude Code and can be used in Cursor, Windsurf, GitHub Copilot, Codex, Gemini CLI, and other tools through an entry rule. It turns the Alibaba Java Coding Guidelines and Spring ecosystem practices into an executable workflow covering coding standards, distributed design, scaffolding, testing, PRD analysis, and brownfield onboarding. Every code change is planned, confirmed, implemented, tested, and archived through OpenSpec.
 
 [中文](README.md)
 
@@ -54,6 +54,42 @@ Install once for all projects on the machine:
 On Windows: `C:\Users\<you>\.claude\skills\java-microservice\`.
 
 Start a new Claude Code session after installing so the skill is discovered.
+
+### Other agents
+
+The skill content is plain Markdown/YAML and is not tied to Claude Code, but automatic skill discovery is Claude Code-specific. For other agents, use one of two approaches:
+
+1. **Tool-neutral folder + entry rule (recommended)**: place `java-microservice/` under `.agents/java-microservice/` (or `docs/java-microservice/`) and add a short entry rule in the agent's rule file pointing to `SKILL.md`.
+2. **Merge into the rule file**: if the agent cannot read files on demand, merge `SKILL.md` into the rule file and keep `references/` and `stacks/` beside it for reference.
+
+Common locations (check each tool's current docs):
+
+| Agent | Project-level | User-level / global |
+| --- | --- | --- |
+| Claude Code | `.claude/skills/java-microservice/SKILL.md` | `~/.claude/skills/java-microservice/` |
+| Cursor | `.cursor/rules/*.mdc` | Cursor Settings → Rules |
+| Windsurf | `.windsurf/rules/*.md` | Windsurf Settings → Rules |
+| GitHub Copilot | `.github/copilot-instructions.md`, `.github/instructions/*.instructions.md` | Organization or personal Copilot settings |
+| OpenAI Codex CLI | `AGENTS.md` | `~/.codex/AGENTS.md` (check current docs) |
+| Gemini CLI | `GEMINI.md` | `~/.gemini/GEMINI.md` |
+| Cline | `.clinerules` or `.clinerules/*.md` | Cline custom instructions |
+| Roo Code | `.roo/rules/*.md` | Roo Code global rules |
+| Continue | `.continue/rules/*.md` | `~/.continue/rules/` (check current docs) |
+| Aider | `CONVENTIONS.md` (loaded via `--read`) | `.aider.conf.yml` |
+| Cross-tool convention | `AGENTS.md` | — |
+
+Entry rule template:
+
+```markdown
+# Java Microservice Rules
+
+For Java microservice work, read `.agents/java-microservice/SKILL.md` first,
+then load the relevant files under `references/` and `stacks/` as directed.
+All code changes must go through OpenSpec: plan, user approval, implement,
+verify, archive.
+```
+
+Rule loading, precedence, and length limits differ by tool. When on-demand file reads are unavailable, use `SKILL.md` as the main rule body and keep `references/` as supporting material.
 
 ## Quick start
 

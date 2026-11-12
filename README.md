@@ -1,6 +1,6 @@
 # Java Microservice Skill
 
-面向 Claude Code 的 Java 微服务开发 skill。基于《阿里巴巴 Java 开发手册》与 Spring 生态，把编码规范、分布式设计、脚手架、测试、PRD 分析和存量项目接入固化成可执行的开发流程，并通过 OpenSpec 管理从需求到交付的全过程。
+面向 AI 编码 Agent 的 Java 微服务开发 skill，原生适配 Claude Code，也可通过入口规则用于 Cursor、Windsurf、GitHub Copilot、Codex、Gemini CLI 等工具。基于《阿里巴巴 Java 开发手册》与 Spring 生态，把编码规范、分布式设计、脚手架、测试、PRD 分析和存量项目接入固化成可执行的开发流程，并通过 OpenSpec 管理从需求到交付的全过程。
 
 [English](README.en.md)
 
@@ -56,6 +56,41 @@ your-project/
 Windows 对应 `C:\Users\<你的用户名>\.claude\skills\java-microservice\`。
 
 安装后需要新开一个 Claude Code 会话，skill 才会被重新扫描。
+
+### 其他 Agent
+
+本 skill 的内容是纯 Markdown / YAML，不绑定 Claude Code；但"自动发现 skills"是 Claude Code 专属机制。其他 Agent 推荐两种用法：
+
+1. **工具中立目录 + 入口规则（推荐）**：把 `java-microservice/` 放到项目的 `.agents/java-microservice/`（或 `docs/java-microservice/`），再在对应 Agent 的规则文件里写一段入口规则，指向 `SKILL.md`。
+2. **合并进规则文件**：如果 Agent 不支持按需读取文件，把 `SKILL.md` 内容合并进规则文件，并把 `references/` 与 `stacks/` 放在同目录供查阅。
+
+常见存放位置（以各工具当前文档为准）：
+
+| Agent | 项目级 | 用户级 / 全局 |
+| --- | --- | --- |
+| Claude Code | `.claude/skills/java-microservice/SKILL.md` | `~/.claude/skills/java-microservice/` |
+| Cursor | `.cursor/rules/*.mdc` | Cursor Settings → Rules |
+| Windsurf | `.windsurf/rules/*.md` | Windsurf Settings → Rules |
+| GitHub Copilot | `.github/copilot-instructions.md`、`.github/instructions/*.instructions.md` | 组织或个人 Copilot 设置 |
+| OpenAI Codex CLI | `AGENTS.md` | `~/.codex/AGENTS.md`（以当前文档为准） |
+| Gemini CLI | `GEMINI.md` | `~/.gemini/GEMINI.md` |
+| Cline | `.clinerules` 或 `.clinerules/*.md` | Cline 自定义指令 |
+| Roo Code | `.roo/rules/*.md` | Roo Code 全局规则 |
+| Continue | `.continue/rules/*.md` | `~/.continue/rules/`（以当前文档为准） |
+| Aider | `CONVENTIONS.md`（`--read` 加载） | `.aider.conf.yml` |
+| 通用约定 | `AGENTS.md` | — |
+
+入口规则模板：
+
+```markdown
+# Java Microservice Rules
+
+当任务涉及 Java 微服务开发时，先读取 `.agents/java-microservice/SKILL.md`，
+再按其中的任务路由加载 `references/` 与 `stacks/`。
+所有代码变更先走 OpenSpec：规划、用户确认、实施、测试验证、归档。
+```
+
+不同 Agent 对规则文件的加载方式、优先级和长度限制不同；无法按需读取文件时，优先把 `SKILL.md` 作为规则主体，`references/` 作为补充资料。
 
 ## 快速开始
 
